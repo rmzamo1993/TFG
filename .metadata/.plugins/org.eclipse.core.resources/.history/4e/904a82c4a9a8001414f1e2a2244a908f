@@ -1,0 +1,15 @@
+package com.clipit.activities;
+
+import java.util.ArrayList;
+
+public class ActivitiesMethods {
+	public static String url_string;
+
+	public ActivitiesMethods(){
+		this.url_string = "clipit.es/clipit_ruben";
+
+	}
+	
+	
+	
+}

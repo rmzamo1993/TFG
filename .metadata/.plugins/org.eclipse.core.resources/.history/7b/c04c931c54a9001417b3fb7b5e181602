@@ -1,0 +1,121 @@
+package com.clipit.autentication;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import org.apache.http.client.ClientProtocolException;
+
+
+import com.clipit.menu.Inbox_Activity;
+import com.example.clipit.R;
+import com.example.clipit.R.id;
+import com.example.clipit.R.layout;
+import com.example.clipit.R.menu;
+
+import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+public class Login_Activity extends ActionBarActivity {
+	private static final String LOGTAG = "LogsAndroid";
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// FullScreen
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN); // FullScreen
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login_);
+		
+		
+		final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
+		final EditText usr = (EditText) findViewById(R.id.user);
+		final EditText psw = (EditText) findViewById(R.id.password);
+		Button logIn = (Button) findViewById(R.id.VerificationButton);
+		
+		logIn.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				pb.setVisibility(View.VISIBLE);
+				pb.setMax(100);
+				pb.setProgress(0);
+				String userContent = usr.getText().toString();
+				String passwordContent = psw.getText().toString();
+				TokenClass token = new TokenClass(userContent, passwordContent, getApplicationContext());
+				String xml = null;
+				try {
+					try {
+						xml = token.takeToken();
+					} catch (URISyntaxException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String tokenContent=null;
+				
+					try {
+						if(!(token.errorLogIn(xml))){
+						tokenContent=token.toParserXML(xml);
+						token.getIdByLogin();
+						token.savePreferences();
+						Intent i= new Intent(Login_Activity.this,Inbox_Activity.class);
+						i.putExtra("user_name", token.getUser());
+						i.putExtra("token_id", TokenClass.token_string);
+						i.putExtra("user_id", TokenClass.id_user);
+						startActivity(i);
+						finish();
+						}else{
+							pb.setVisibility(View.INVISIBLE);
+							Toast errorLogin=Toast.makeText(getApplicationContext(), "El usuario y la contraseña no coinciden", Toast.LENGTH_SHORT);
+							errorLogin.show();
+						}
+					} catch (Throwable e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			
+				
+			}
+			
+
+		});
+		
+		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.login_, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

@@ -1,0 +1,73 @@
+package com.clipit.activities;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.clipit.chat.ListInbox;
+import com.example.clipit.R;
+
+public class ListViewActivitiesAdapter extends BaseAdapter {
+	private static ArrayList<Activities> activities;
+
+	private LayoutInflater mInflater;
+
+	public ListViewActivitiesAdapter(Context ctx, ArrayList<Activities> results){
+	    activities = results;
+	    mInflater = LayoutInflater.from(ctx);
+	}
+
+	@Override
+	public int getCount() {
+	    // TODO Auto-generated method stub
+	    return activities.size();
+	}
+
+	@Override
+	public Object getItem(int arg0) {
+	    // TODO Auto-generated method stub
+	    return activities.get(arg0);
+	}
+
+	@Override
+	public long getItemId(int arg0) {
+	    // TODO Auto-generated method stub
+	    return arg0;
+	}
+
+
+	public View getView(int position, View convertView, ViewGroup parent) {
+	    // TODO Auto-generated method stub
+	    ViewHolder holder;
+	    if(convertView == null){
+	        convertView = mInflater.inflate(R.layout.activity_item, null);
+	        holder = new ViewHolder();
+	        holder.txtname = (TextView) convertView.findViewById(R.id.item_name);          
+	        holder.txtstatus=(TextView) convertView.findViewById(R.id.status);  
+	        holder.txttime=(TextView) convertView.findViewById(R.id.time);
+	        convertView.setTag(holder);
+	    } else {
+	        holder = (ViewHolder) convertView.getTag();
+	    }
+
+	    holder.txtname.setText(activities.get(position).getNameActivities());
+	    holder.txtstatus.setText(activities.get(position).getStatus().toUpperCase());
+	    int a= Integer.parseInt(activities.get(position).getInitialTime());
+	    int b= Integer.parseInt(activities.get(position).getFinalTime());
+	    int c=(b-a)/86400;
+	    holder.txttime.setText(+c+" Dias abierto");
+	    return convertView;
+	}
+
+	static class ViewHolder{
+	    TextView txtname,txtstatus,txttime;
+	}
+}

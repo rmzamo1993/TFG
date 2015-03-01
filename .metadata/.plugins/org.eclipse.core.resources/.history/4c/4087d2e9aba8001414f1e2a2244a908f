@@ -1,0 +1,9 @@
+package com.clipit.activities;
+
+public class Activities {
+	public String nameActivities;
+	public String description;
+	public String status;
+	public String initialTime;
+	public String finalTime;
+}
