@@ -7,8 +7,6 @@ public class Activities {
 	public String initialTime;
 	public String finalTime;
 	
-	
-	
 	public String getNameActivities() {
 		return nameActivities;
 	}

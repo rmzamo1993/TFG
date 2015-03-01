@@ -2,7 +2,6 @@ INDEX VERSION 1.126+C:\Users\RUBEN\Documents\TFG\.metadata\.plugins\org.eclipse.
 3903391350.index
 3183004189.index
 3515282563.index
-3357224835.index
 1263865336.index
 1684382408.index
 2948015670.index
