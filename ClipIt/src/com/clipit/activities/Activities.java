@@ -1,6 +1,8 @@
 package com.clipit.activities;
 
-public class Activities {
+import java.io.Serializable;
+
+public class Activities implements Serializable{
 	public String nameActivities;
 	public String description;
 	public String status;

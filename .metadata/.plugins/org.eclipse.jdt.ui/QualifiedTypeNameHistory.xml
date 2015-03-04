@@ -30,7 +30,6 @@
 <fullyQualifiedTypeName name="com.clipit.chat.ChatArrayAdapter"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.clipit.chat.ListInbox"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.clipit.chat.ChatsMethods"/>
 <fullyQualifiedTypeName name="java.net.ServerSocket"/>
@@ -38,19 +37,21 @@
 <fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
 <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="com.clipit.chat.Message"/>
-<fullyQualifiedTypeName name="android.app.Activity"/>
 <fullyQualifiedTypeName name="android.os.Bundle"/>
 <fullyQualifiedTypeName name="com.clipit.chat.ChatBubbleActivity"/>
 <fullyQualifiedTypeName name="com.clipit.sockets.ServerSockets"/>
 <fullyQualifiedTypeName name="org.apache.http.NameValuePair"/>
 <fullyQualifiedTypeName name="org.apache.http.message.BasicNameValuePair"/>
 <fullyQualifiedTypeName name="org.apache.http.client.entity.UrlEncodedFormEntity"/>
-<fullyQualifiedTypeName name="com.clipit.activities.ActivitiesMethods"/>
-<fullyQualifiedTypeName name="com.clipit.activities.Activities"/>
 <fullyQualifiedTypeName name="com.clipit.activities.ListViewActivitiesAdapter"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
-<fullyQualifiedTypeName name="com.example.clipit.R.id"/>
 <fullyQualifiedTypeName name="java.net.URI"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.GregorianCalendar"/>
+<fullyQualifiedTypeName name="com.clipit.activities.ActivitiesMethods"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="com.clipit.activities.ActivityInformation"/>
+<fullyQualifiedTypeName name="com.example.clipit.R.id"/>
+<fullyQualifiedTypeName name="com.clipit.activities.Activities"/>
+<fullyQualifiedTypeName name="android.app.Activity"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
 </qualifiedTypeNameHistroy>

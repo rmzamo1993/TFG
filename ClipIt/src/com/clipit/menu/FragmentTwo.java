@@ -8,6 +8,7 @@ import org.jdom2.JDOMException;
 
 import com.clipit.activities.Activities;
 import com.clipit.activities.ActivitiesMethods;
+import com.clipit.activities.ActivityInformation;
 import com.clipit.activities.ListViewActivitiesAdapter;
 import com.clipit.chat.ChatBubbleActivity;
 import com.clipit.chat.ChatsMethods;
@@ -80,9 +81,9 @@ public class FragmentTwo extends Fragment {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Object conversationUser = ((ListviewContactAdapter) parent.getAdapter()).getItem(position);
-					//Coge the la id de todos los usuarios y por la posicion mando el usuario que me interesa
-					/*String user_name=null;
+					//Object conversationUser = ((ListviewContactAdapter) parent.getAdapter()).getItem(position);
+					//Coge the la id de todas las actividades donde esta el usuario
+					String user_name=null;
 					String token=null;
 					String user_id=null;
 					ArrayList<ListInbox> linbo = null;
@@ -91,37 +92,28 @@ public class FragmentTwo extends Fragment {
 						user_name = sp.getString("user_name", null);
 						token = sp.getString("token_id", null);
 						user_id=sp.getString("user_id", null);}
-					ChatsMethods cm=new ChatsMethods();
-					String xml=null;
+					ActivitiesMethods am=new ActivitiesMethods();
+					ArrayList<Activities> listActivities = null;
 					try {
-						xml=cm.getInbox(token, user_id);
+						listActivities=am.getActivities(token, user_id);
 					} catch (ClientProtocolException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-					String listId="";
-					try {
-						cm.takeUserIdSender(xml, user_id);
-						linbo=cm.takeUserNameSender(token);
-						
 					} catch (JDOMException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
-			    	Intent intent = new Intent(getActivity(),ChatBubbleActivity.class);
-			    	ListInbox inboxObject=linbo.get(position);
+			    	Intent intent = new Intent(getActivity(),ActivityInformation.class);
+			    	Activities activityChoosen=listActivities.get(position);
 			    	
-			    	intent.putExtra("ConversationWithUser", inboxObject);
+			    	intent.putExtra("ConversationWithUser", activityChoosen);
 			    	//based on item add info to intent
 			    	startActivity(intent);
-				*/	
+				
 				}
 
 		    	});

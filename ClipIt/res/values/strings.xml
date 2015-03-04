@@ -31,6 +31,8 @@
     <string name="title_activity_custom_drawer_adapter">CustomDrawerAdapter</string>
     <string name="title_activity_custom_spinner_adapter">CustomSpinnerAdapter</string>
     <string name="title_activity_chat_message">ChatMessage</string>
-	<string name="main_empty_list">There is no recent conversation, write new message
+    <string name="main_empty_list">There is no recent conversation, write new message
 		to start one.</string>
+    <string name="title_activity_activity_information">ActivityInformation</string>
+
 </resources>

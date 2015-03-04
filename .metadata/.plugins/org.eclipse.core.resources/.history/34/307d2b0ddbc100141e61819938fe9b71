@@ -1,0 +1,170 @@
+package com.clipit.menu;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.apache.http.client.ClientProtocolException;
+import org.jdom2.JDOMException;
+
+import com.clipit.activities.Activities;
+import com.clipit.activities.ActivitiesMethods;
+import com.clipit.activities.ListViewActivitiesAdapter;
+import com.clipit.chat.ChatBubbleActivity;
+import com.clipit.chat.ChatsMethods;
+import com.clipit.chat.ListInbox;
+import com.clipit.chat.ListviewContactAdapter;
+import com.example.clipit.R;
+import com.example.clipit.R.id;
+import com.example.clipit.R.layout;
+import com.example.clipit.R.menu;
+
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class FragmentTwo extends Fragment {
+
+
+	public FragmentTwo() {
+
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_layout_two, container, false);
+		 	String user_name=null;
+			String token=null;
+			String user_id=null;
+			SharedPreferences sp = getActivity().getSharedPreferences("userpreferences", Context.MODE_PRIVATE);
+			if(sp.contains("cookie_session")){
+				user_name = sp.getString("user_name", null);
+				token = sp.getString("token_id", null);
+				user_id=sp.getString("user_id", null);}
+		   
+		 	ActivitiesMethods am=new ActivitiesMethods();
+		 	ArrayList<Activities> listActivities = null;
+			try {
+				listActivities = am.getActivities(token, user_id);
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JDOMException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+ 		    final ListView lv = (ListView)rootView.findViewById(R.id.lv_contact);
+		    lv.setAdapter(new ListViewActivitiesAdapter(getActivity(), listActivities));
+		    lv.setOnItemClickListener(new OnItemClickListener(){
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Object conversationUser = ((ListviewContactAdapter) parent.getAdapter()).getItem(position);
+					//Coge the la id de todas las actividades donde esta el usuario
+					String user_name=null;
+					String token=null;
+					String user_id=null;
+					ArrayList<ListInbox> linbo = null;
+					SharedPreferences sp = getActivity().getSharedPreferences("userpreferences", Context.MODE_PRIVATE);
+					if(sp.contains("cookie_session")){
+						user_name = sp.getString("user_name", null);
+						token = sp.getString("token_id", null);
+						user_id=sp.getString("user_id", null);}
+					ActivitiesMethods am=new ActivitiesMethods();
+					ArrayList<Activities> listActivities;
+					try {
+						listActivities=am.getActivities(token, user_id);
+					} catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JDOMException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+			    	Intent intent = new Intent(getActivity(),ChatBubbleActivity.class);
+			    	Activities activityChoosen=listActivities.get(position);
+			    	
+			    	intent.putExtra("ConversationWithUser", activityChoosen);
+			    	//based on item add info to intent
+			    	startActivity(intent);
+				
+				}
+
+		    	});
+		    return rootView;
+		}
+	/*private ArrayList<ListInbox> GetlistContact(){
+		String user_name=null;
+		String token=null;
+		String user_id=null;
+		ArrayList<ListInbox> linbo = null;
+		SharedPreferences sp = getActivity().getSharedPreferences("userpreferences", Context.MODE_PRIVATE);
+		if(sp.contains("cookie_session")){
+			user_name = sp.getString("user_name", null);
+			token = sp.getString("token_id", null);
+			user_id=sp.getString("user_id", null);}
+		ChatsMethods cm=new ChatsMethods();
+		String xml=null;
+		try {
+			xml=cm.getInbox(token, user_id);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String listId="";
+		try {
+			cm.takeUserIdSender(xml, user_id);
+			linbo=cm.takeUserNameSender(token);
+			
+		} catch (JDOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    ArrayList<ListInbox> contactlist = new ArrayList<ListInbox>();
+
+	   
+	    for(ListInbox lb:linbo){
+	    ListInbox contact = new ListInbox();
+	    if(lb.getName().equalsIgnoreCase("")){
+	    	lb.setName("No Name");
+	    }
+	    contact.setName(lb.getName()+" - "+lb.getLoginUser());
+	    contact.setImagen(R.drawable.usuario);
+	    contact.setLastMessage("Mostrar el ultimo mensaje");
+	    contactlist.add(contact);
+	    }
+	    return contactlist; 
+	    }   
+*/
+}
